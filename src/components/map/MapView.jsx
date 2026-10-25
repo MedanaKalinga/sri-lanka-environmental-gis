@@ -61,6 +61,18 @@ export default function MapView({
     return values.length ? { min: Math.min(...values), max: Math.max(...values) } : null
   }, [data, indicator, visualization])
 
+  const missingCount = useMemo(() => {
+    if (!data?.features?.length) return 0
+
+    return data.features.filter((feature) => {
+      const modelData = feature.properties.modelData
+      if (visualization === 'indicator') {
+        return !Number.isFinite(getIndicatorValue(modelData, indicator))
+      }
+      return !Number.isInteger(modelData?.clusterId)
+    }).length
+  }, [data, indicator, visualization])
+
   const mappedCount = data?.features.filter((feature) => feature.properties.modelData).length || 0
   const basemapConfig = BASEMAPS[basemap] || BASEMAPS.researchLight
   const featureIdentity = data?.features.map((feature) => feature.properties.dsId).join(',') || 'empty'
@@ -105,7 +117,13 @@ export default function MapView({
       <div className="absolute bottom-7 left-3 z-[500] rounded-lg bg-slate-950/75 px-2.5 py-1.5 text-[10px] font-medium text-white shadow backdrop-blur">
         {data?.features.length || 0} polygons · {mappedCount} matched to {modelLabel}
       </div>
-      <ClusterLegend mode={visualization} indicatorConfig={indicatorConfig} domain={domain} classification={classification} />
+      <ClusterLegend
+        mode={visualization}
+        indicatorConfig={indicatorConfig}
+        domain={domain}
+        classification={classification}
+        missingCount={missingCount}
+      />
 
       {loading && (
         <div className="map-message"><LoaderCircle className="size-6 animate-spin text-emerald-700" /><p className="font-semibold">Loading local datasets…</p></div>

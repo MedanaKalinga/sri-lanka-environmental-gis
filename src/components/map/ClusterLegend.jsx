@@ -1,7 +1,7 @@
 import { CLUSTER_COLORS, formatIndicatorValue, MISSING_DATA_COLOR, MODEL_A_CLASSIFICATIONS } from '../../constants/dataConfig'
 import { gradientStyle } from '../../utils/colorScale'
 
-export default function ClusterLegend({ mode, indicatorConfig, domain, classification }) {
+export default function ClusterLegend({ mode, indicatorConfig, domain, classification, missingCount = 0 }) {
   if (mode === 'indicator') {
     const hasRange = domain && Number.isFinite(domain.min) && Number.isFinite(domain.max)
     const validRange = indicatorConfig?.validRange
@@ -23,7 +23,11 @@ export default function ClusterLegend({ mode, indicatorConfig, domain, classific
             )}
           </>
         ) : <p className="mt-2 text-[11px] text-slate-500">No numeric values available</p>}
-        <div className="mt-2 flex items-center gap-2 text-[10px] text-slate-500"><span className="size-2.5 rounded-sm" style={{ background: MISSING_DATA_COLOR }} /> Missing</div>
+        {missingCount > 0 && (
+          <div className="mt-2 flex items-center gap-2 text-[10px] text-slate-500">
+            <span className="size-2.5 rounded-sm" style={{ background: MISSING_DATA_COLOR }} /> {missingCount} missing
+          </div>
+        )}
       </div>
     )
   }
@@ -45,9 +49,12 @@ export default function ClusterLegend({ mode, indicatorConfig, domain, classific
               </div>
             </div>
           ))}
-          <div className="flex items-center gap-2 pt-0.5 text-[9px] text-slate-500">
-            <span className="size-3 rounded-sm ring-1 ring-black/10" style={{ background: MISSING_DATA_COLOR }} /> Missing assignment
-          </div>
+          {missingCount > 0 && (
+            <div className="flex items-center gap-2 pt-0.5 text-[9px] text-slate-500">
+              <span className="size-3 rounded-sm ring-1 ring-black/10" style={{ background: MISSING_DATA_COLOR }} />
+              {missingCount} missing assignment{missingCount === 1 ? '' : 's'}
+            </div>
+          )}
         </div>
       </div>
     )
@@ -62,9 +69,12 @@ export default function ClusterLegend({ mode, indicatorConfig, domain, classific
             <span className="size-2.5 rounded-sm" style={{ background: color }} /> Cluster {id}
           </div>
         ))}
-        <div className="col-span-2 flex items-center gap-2 text-[10px] text-slate-500">
-          <span className="size-2.5 rounded-sm" style={{ background: MISSING_DATA_COLOR }} /> Missing assignment
-        </div>
+        {missingCount > 0 && (
+          <div className="col-span-2 flex items-center gap-2 text-[10px] text-slate-500">
+            <span className="size-2.5 rounded-sm" style={{ background: MISSING_DATA_COLOR }} />
+            {missingCount} missing assignment{missingCount === 1 ? '' : 's'}
+          </div>
+        )}
       </div>
     </div>
   )
