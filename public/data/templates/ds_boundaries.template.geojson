@@ -1,0 +1,5 @@
+{
+  "type": "FeatureCollection",
+  "templateNote": "Template only. Replace the empty features array with validated DS Polygon or MultiPolygon features.",
+  "features": []
+}
