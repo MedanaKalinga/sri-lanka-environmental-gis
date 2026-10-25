@@ -131,31 +131,31 @@ export const MODEL_A_CLASSIFICATIONS = {
     description: 'More detailed five-cluster solution selected for real-world environmental interpretation.',
     clusters: {
       1: {
-        name: 'Moderately Vegetated Lowlands',
+        name: 'Higher-Greenness Lowlands',
         count: 133,
         color: '#5aae61',
         description: 'Moderate-high vegetation, low elevation, limited water candidates.',
       },
       2: {
-        name: 'Water-Candidate-Rich Lowlands',
+        name: 'Water-Signal Lowlands',
         count: 33,
         color: '#2878b5',
         description: 'Higher detected water-candidate percentage, moderate-low vegetation, low elevation.',
       },
       3: {
-        name: 'Densely Vegetated Sloping Regions',
+        name: 'Green Sloping Uplands',
         count: 77,
         color: '#176b45',
         description: 'Very high vegetation, steeper terrain, very low water-candidate percentage.',
       },
       4: {
-        name: 'Low-Vegetation Lowlands',
+        name: 'Moderate-Greenness Lowlands',
         count: 63,
         color: '#d6a735',
         description: 'Lower vegetation, low elevation, generally gentle slopes.',
       },
       5: {
-        name: 'High-Elevation Vegetated Highlands',
+        name: 'Vegetated Highlands',
         count: 33,
         color: '#7e57a2',
         description: 'High elevation, steep slopes, high vegetation.',
